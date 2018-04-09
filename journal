@@ -1,0 +1,24 @@
+#!/bin/bash
+DATE=`date '+%m-%d-%y'`
+FILENAME="/home/jay/Documents/Journal/$DATE.txt"
+if [ $1 ]; then
+	FILENAME="/home/jay/Documents/Journal/$1.txt"
+else
+	FILENAME="/home/jay/Documents/Journal/$DATE.txt"
+	if [ ! -f $FILENAME ]; then
+                touch $FILENAME
+                DATE=`date`
+	fi
+fi
+
+if [ -f $FILENAME ]; then
+	printf 'Editing journal entry for '
+	echo $FILENAME
+	DATE=`date`
+	echo $DATE >> $FILENAME
+	nano $FILENAME
+	echo $DATE >> $FILENAME
+else
+	printf 'No journal entry found for '
+	echo $FILENAME
+fi
